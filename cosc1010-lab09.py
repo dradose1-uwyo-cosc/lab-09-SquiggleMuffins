@@ -1,8 +1,8 @@
-# Your Name Here
+# Jackie Hall
 # UWYO COSC 1010
-# Submission Date
+# Submission Date 11/13/2024
 # Lab XX
-# Lab Section:
+# Lab Section:15
 # Sources, people worked with, help given to:
 # Your
 # Comments
@@ -13,6 +13,34 @@
 # One for Pizza
 # One for a Pizzeria
 
+class Pizza:
+    def __init__(self, size, sauce="red"):
+        self.size = size
+        self.sauce = sauce
+        self.toppings = ["Cheese"]
+    
+    def gsize(self):
+        return self.size
+    
+    def gsauce(self):
+        return self.sauce
+    
+    def gtop(self):
+        return self.toppings
+    
+    def sz(self, size):
+        if size >= 10:
+            self.size = size
+        else:
+            self.size = 10
+
+    def adtp(self, *ntp):
+        self.toppings.extend(ntp)
+
+    def rettop(self):
+        return len(self.toppings)
+    
+    
 
 # You will be creating a Pizza class. It should have the following attributes:
 # - Size
@@ -34,6 +62,8 @@
 # - Assign the parameter for size to a size attribute.
 # - Assign the parameter for sauce to the attribute.
 # - Create the toppings attribute, starting off as a list only holding cheese.
+
+
 
 
 # You will be creating a Pizzeria class with the following attributes:
@@ -70,6 +100,43 @@
 # - getNumberOfOrders()
 #   - This will simply return the number of orders.
 
+class Pizzeria():
+   ppt = 0.30
+   ppi = 0.60
+
+   def __init__(self):
+       self.orders = 0
+       self.pizzas = []
+
+   def po(self):
+        size = int(input("Please enter the size of pizza, as a whole number. The smallest size is 10: "))
+        sauce = input("What kind of sauce would you like (leave blank for red sauce): ")
+    
+        toppings = []
+        while True:
+            top = input("Please enter the toppings you would like, leave blank when done: ")
+            if top == "":
+                break
+            toppings.append(top)
+        piz = Pizza(size, sauce)
+        piz.adtp(*toppings)
+        self.pizzas.append(piz)
+        self.orders += 1
+    
+   def price(self, piz):
+       return (piz.gsize() * self.ppi) + (piz.rettop() * self.ppt)
+    
+   def rec(self, piz):
+       print(f"You ordered a {piz.gsize()}\" pizza with {piz.gsauce()} sauce and the following toppings:")
+       print(f"    {piz.gtop()}")
+       print(f"you orderd a {piz.gsize()}\" pizza for ${piz.gsize() * self.ppi}")
+       print(f"You had {piz.rettop()} topping(s) for {piz.rettop() * self.ppt}")
+       print(f"Your total price is $ {(piz.gsize() * self.ppi) + (piz.rettop() * self.ppt)}")
+
+   def gnome(self):
+       return self.orders
+
+
 
 # - Declare your pizzeria object.
 # - Enter a while loop to ask if the user wants to order a pizza.
@@ -79,6 +146,18 @@
 # - Repeat the loop as needed.
 # - AFTER the loop, print how many orders were placed.
 
+
+pizzeria = Pizzeria()
+
+while True:
+    ui = input("Would you like to place an order? exit to exit")
+    if ui.lower() == "exit":
+        break
+    elif ui.lower() == "yes": 
+        pizzeria.po()
+        pizzeria.rec(pizzeria.pizzas[-1])
+
+print(f"Total orders place:{pizzeria.gnome()}")
 
 # Example output:
 """
